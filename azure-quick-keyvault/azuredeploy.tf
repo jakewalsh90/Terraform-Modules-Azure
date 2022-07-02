@@ -18,7 +18,7 @@ provider "azurerm" {
 }
 # Modules 
 module "quick-keyvault" {
-  source = "./modules/quick-keyvault"
+  source          = "./modules/quick-keyvault"
   lz-keyvault-loc = "ukwest"
-  lz-keyvault-rg = "jwrgkv1"
+  lz-keyvault-rg  = "jwrgkv1"
 }

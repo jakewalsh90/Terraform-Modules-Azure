@@ -18,7 +18,7 @@ provider "azurerm" {
 }
 # Modules 
 module "quick-vwan" {
-  source       = "./modules/quick-vwan"
-  vwan-loc1    = "uksouth"
-  vwan-loc2    = "ukwest"
+  source    = "./modules/quick-vwan"
+  vwan-loc1 = "uksouth"
+  vwan-loc2 = "ukwest"
 }
