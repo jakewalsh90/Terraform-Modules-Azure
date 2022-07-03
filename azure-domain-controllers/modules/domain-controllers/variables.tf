@@ -2,6 +2,14 @@ variable "pri-location" {
   description = "Location for Primary Objects that are only required in a single region"
   default     = "uksouth"
 }
+variable "dcsize" {
+  description = "Size for all DC VMs"
+  default     = "Standard_D2s_v4"
+}
+variable "dcadmin" {
+  description = "Admin username for all DC VMs"
+  default     = "vmadmin"
+}
 variable "regions" {
   description = "Locations and CIDR Ranges"
   type        = map(any)

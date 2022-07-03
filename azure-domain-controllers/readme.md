@@ -4,6 +4,6 @@ The aim of this module is to provide a simple way to deploy the following elemen
 
 1. A Resource Group for Identity
 2. A KeyVault for the automatically generated Passwords - note, this is only in the Primary Region.
-3. An availability set for Domain Controllers
-4. 2x Domain Controllers IaaS Virtual Machines
-5. Supporting Resources 
+3. An Availability Set for Domain Controllers
+4. An Identity VNET and Subnet
+5. 2x IaaS Virtual Machines to be used as Domain Controllers 

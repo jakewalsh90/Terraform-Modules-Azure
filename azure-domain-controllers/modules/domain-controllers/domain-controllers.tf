@@ -45,6 +45,18 @@ resource "azurerm_key_vault" "kv1" {
     ]
   }
 }
+# Create KeyVault VM password
+resource "random_password" "vmpassword" {
+  length  = 20
+  special = true
+}
+# Create Key Vault Secret
+resource "azurerm_key_vault_secret" "vmpassword" {
+  name         = "vmpassword"
+  value        = random_password.vmpassword.result
+  key_vault_id = azurerm_key_vault.kv1.id
+  depends_on   = [azurerm_key_vault.kv1]
+}
 # Availability Sets
 resource "azurerm_availability_set" "as" {
   for_each            = var.regions
@@ -80,4 +92,112 @@ resource "azurerm_subnet_network_security_group_association" "nsga" {
   for_each                  = var.regions
   subnet_id                 = azurerm_subnet.snet[each.key].id
   network_security_group_id = azurerm_network_security_group.nsg[each.key].id
+}
+# NICs
+resource "azurerm_network_interface" "nic1" {
+  for_each            = var.regions
+  name                = "nic1-identity-${each.value.location}"
+  location            = each.value.location
+  resource_group_name = azurerm_resource_group.rg[each.key].name
+  ip_configuration {
+    name                          = "ipconfig-nic1-${each.value.location}"
+    subnet_id                     = azurerm_subnet.snet[each.key].id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+resource "azurerm_network_interface" "nic2" {
+  for_each            = var.regions
+  name                = "nic2-identity-${each.value.location}"
+  location            = each.value.location
+  resource_group_name = azurerm_resource_group.rg[each.key].name
+  ip_configuration {
+    name                          = "ipconfig-nic1-${each.value.location}"
+    subnet_id                     = azurerm_subnet.snet[each.key].id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+# Data Disks for NTDS
+resource "azurerm_managed_disk" "ntds1" {
+  for_each             = var.regions
+  name                 = "ntds1-identity-${each.value.location}"
+  location             = each.value.location
+  resource_group_name  = azurerm_resource_group.rg[each.key].name
+  storage_account_type = "StandardSSD_LRS"
+  create_option        = "Empty"
+  disk_size_gb         = "20"
+  max_shares           = "2"
+}
+resource "azurerm_managed_disk" "ntds2" {
+  for_each             = var.regions
+  name                 = "ntds2-identity-${each.value.location}"
+  location             = each.value.location
+  resource_group_name  = azurerm_resource_group.rg[each.key].name
+  storage_account_type = "StandardSSD_LRS"
+  create_option        = "Empty"
+  disk_size_gb         = "20"
+  max_shares           = "2"
+}
+# Domain Controller VMs
+resource "azurerm_windows_virtual_machine" "dc1" {
+  for_each            = var.regions
+  name                = "vm1-identity-${each.value.location}"
+  location            = each.value.location
+  resource_group_name = azurerm_resource_group.rg[each.key].name
+  size                = var.dcsize
+  admin_username      = var.dcadmin
+  admin_password      = azurerm_key_vault_secret.vmpassword.value
+  network_interface_ids = [
+    azurerm_network_interface.nic1[each.key].id,
+  ]
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "StandardSSD_LRS"
+  }
+
+  source_image_reference {
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2019-Datacenter"
+    version   = "latest"
+  }
+}
+resource "azurerm_windows_virtual_machine" "dc2" {
+  for_each            = var.regions
+  name                = "vm2-identity-${each.value.location}"
+  location            = each.value.location
+  resource_group_name = azurerm_resource_group.rg[each.key].name
+  size                = var.dcsize
+  admin_username      = var.dcadmin
+  admin_password      = azurerm_key_vault_secret.vmpassword.value
+  network_interface_ids = [
+    azurerm_network_interface.nic2[each.key].id,
+  ]
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "StandardSSD_LRS"
+  }
+
+  source_image_reference {
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2019-Datacenter"
+    version   = "latest"
+  }
+}
+# Attach NTDS Disks
+resource "azurerm_virtual_machine_data_disk_attachment" "ntds1" {
+  for_each           = var.regions
+  managed_disk_id    = azurerm_managed_disk.ntds1[each.key].id
+  virtual_machine_id = azurerm_windows_virtual_machine.dc1[each.key].id
+  lun                = "10"
+  caching            = "None"
+}
+resource "azurerm_virtual_machine_data_disk_attachment" "ntds2" {
+  for_each           = var.regions
+  managed_disk_id    = azurerm_managed_disk.ntds2[each.key].id
+  virtual_machine_id = azurerm_windows_virtual_machine.dc2[each.key].id
+  lun                = "10"
+  caching            = "None"
 }

@@ -20,6 +20,8 @@ provider "azurerm" {
 module "domain-controllers" {
   source       = "./modules/domain-controllers"
   pri-location = "uksouth"
+  dcsize       = "Standard_D2s_v4"
+  dcadmin      = "vmadmin"
   regions = {
     region1 = {
       location = "uksouth"
@@ -28,6 +30,16 @@ module "domain-controllers" {
     }
     region2 = {
       location = "ukwest"
+      vnetcidr = ["10.11.0.0/16"]
+      snetcidr = ["10.11.1.0/24"]
+    }
+        region3 = {
+      location = "eastus"
+      vnetcidr = ["10.11.0.0/16"]
+      snetcidr = ["10.11.1.0/24"]
+    }
+        region4 = {
+      location = "westus"
       vnetcidr = ["10.11.0.0/16"]
       snetcidr = ["10.11.1.0/24"]
     }
