@@ -19,9 +19,11 @@ provider "azurerm" {
 # Module Configuration
 module "domain-controllers" {
   source       = "./modules/domain-controllers"
+  # Global Variables
   pri-location = "uksouth"
   dcsize       = "Standard_D2s_v4"
   dcadmin      = "vmadmin"
+  # Region Specific Variables
   regions = {
     region1 = {
       location = "uksouth"
