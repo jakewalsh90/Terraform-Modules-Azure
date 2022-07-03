@@ -10,3 +10,9 @@ variable "virtualwan-rg-name-prefix" {
 variable "virtualwan-name" {
     default = "virtualwan"
 }
+variable "loc1-hub-cidr" {
+    default = "virtualwan"
+}
+variable "loc2-hub-cidr" {
+    default = "virtualwan"
+}

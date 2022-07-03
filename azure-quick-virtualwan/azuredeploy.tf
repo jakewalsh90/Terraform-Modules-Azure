@@ -22,5 +22,7 @@ module "quick-virtualwan" {
   virtualwan-loc1 = "uksouth"
   virtualwan-loc2 = "ukwest"
   virtualwan-rg-name-prefix = "rg-conn-"
-  virtualwan-namem = "virtualwan"
+  virtualwan-name = "virtualwan"
+  loc1-hub-cidr = "10.10.0.0/21"
+  loc2-hub-cidr = "10.20.0.0/21"
 }
