@@ -17,8 +17,10 @@ provider "azurerm" {
   }
 }
 # Modules 
-module "quick-vwan" {
-  source    = "./modules/quick-vwan"
-  vwan-loc1 = "uksouth"
-  vwan-loc2 = "ukwest"
+module "quick-virtualwan" {
+  source    = "./modules/quick-virtualwan"
+  virtualwan-loc1 = "uksouth"
+  virtualwan-loc2 = "ukwest"
+  virtualwan-rg-name-prefix = "rg-conn-"
+  virtualwan-namem = "virtualwan"
 }
