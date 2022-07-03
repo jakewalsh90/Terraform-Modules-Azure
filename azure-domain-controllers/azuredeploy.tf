@@ -33,12 +33,12 @@ module "domain-controllers" {
       vnetcidr = ["10.11.0.0/16"]
       snetcidr = ["10.11.1.0/24"]
     }
-        region3 = {
+    region3 = {
       location = "eastus"
       vnetcidr = ["10.11.0.0/16"]
       snetcidr = ["10.11.1.0/24"]
     }
-        region4 = {
+    region4 = {
       location = "westus"
       vnetcidr = ["10.11.0.0/16"]
       snetcidr = ["10.11.1.0/24"]
