@@ -18,11 +18,11 @@ provider "azurerm" {
 }
 # Modules 
 module "quick-virtualwan" {
-  source    = "./modules/quick-virtualwan"
-  virtualwan-loc1 = "uksouth"
-  virtualwan-loc2 = "ukwest"
+  source                    = "./modules/quick-virtualwan"
+  loc1                      = "uksouth"
+  loc2                      = "ukwest"
   virtualwan-rg-name-prefix = "rg-conn-"
-  virtualwan-name = "virtualwan"
-  loc1-hub-cidr = "10.10.0.0/21"
-  loc2-hub-cidr = "10.20.0.0/21"
+  virtualwan-name           = "virtualwan"
+  loc1-hub-cidr             = "10.10.0.0/21"
+  loc2-hub-cidr             = "10.20.0.0/21"
 }

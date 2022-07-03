@@ -1,18 +1,18 @@
-variable "virtualwan-loc1" {
-    default = "uksouth"
+variable "loc1" {
+  default = "uksouth"
 }
-variable "virtualwan-loc2" {
-    default = "ukwest"
+variable "loc2" {
+  default = "ukwest"
 }
 variable "virtualwan-rg-name-prefix" {
-    default = "rg-conn-"
+  default = "rg-conn-"
 }
 variable "virtualwan-name" {
-    default = "virtualwan"
+  default = "virtualwan"
 }
 variable "loc1-hub-cidr" {
-    default = "virtualwan"
+  default = "virtualwan"
 }
 variable "loc2-hub-cidr" {
-    default = "virtualwan"
+  default = "virtualwan"
 }
