@@ -97,7 +97,7 @@ resource "azurerm_subnet_network_security_group_association" "nsga" {
 # NICs
 resource "azurerm_network_interface" "nic1" {
   for_each            = var.regions
-  name                = "nic1-identity-${each.value.location}"
+  name                = "dc1-nic-identity-${each.value.location}"
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   ip_configuration {
@@ -108,7 +108,7 @@ resource "azurerm_network_interface" "nic1" {
 }
 resource "azurerm_network_interface" "nic2" {
   for_each            = var.regions
-  name                = "nic2-identity-${each.value.location}"
+  name                = "dc2-nic-identity-${each.value.location}"
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   ip_configuration {
@@ -120,7 +120,7 @@ resource "azurerm_network_interface" "nic2" {
 # Data Disks for NTDS
 resource "azurerm_managed_disk" "ntds1" {
   for_each             = var.regions
-  name                 = "ntds1-identity-${each.value.location}"
+  name                 = "dc1-ntds-identity-${each.value.location}"
   location             = each.value.location
   resource_group_name  = azurerm_resource_group.rg[each.key].name
   storage_account_type = "StandardSSD_LRS"
@@ -130,7 +130,7 @@ resource "azurerm_managed_disk" "ntds1" {
 }
 resource "azurerm_managed_disk" "ntds2" {
   for_each             = var.regions
-  name                 = "ntds2-identity-${each.value.location}"
+  name                 = "dc2-ntds-identity-${each.value.location}"
   location             = each.value.location
   resource_group_name  = azurerm_resource_group.rg[each.key].name
   storage_account_type = "StandardSSD_LRS"
@@ -141,7 +141,7 @@ resource "azurerm_managed_disk" "ntds2" {
 # Domain Controller VMs
 resource "azurerm_windows_virtual_machine" "dc1" {
   for_each            = var.regions
-  name                = "vm1-id-${each.value.location}"
+  name                = "dc1-id-${each.value.location}"
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   size                = var.dcsize
@@ -166,7 +166,7 @@ resource "azurerm_windows_virtual_machine" "dc1" {
 }
 resource "azurerm_windows_virtual_machine" "dc2" {
   for_each            = var.regions
-  name                = "vm2-id-${each.value.location}"
+  name                = "dc2-id-${each.value.location}"
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   size                = var.dcsize
