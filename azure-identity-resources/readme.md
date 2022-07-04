@@ -1,4 +1,4 @@
-## Azure Domain Controllers / Identity Resources
+## Azure Identity Resources
 
 ### ➡ Note, this is Work in Progress and will be expanded/updated in the future. 
 
