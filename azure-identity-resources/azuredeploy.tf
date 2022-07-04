@@ -17,7 +17,7 @@ provider "azurerm" {
   }
 }
 # Module Configuration
-module "domain-controllers" {
+module "identity-resources" {
   source = "./modules/identity-resources"
   # Global Variables
   pri-location = "uksouth"
