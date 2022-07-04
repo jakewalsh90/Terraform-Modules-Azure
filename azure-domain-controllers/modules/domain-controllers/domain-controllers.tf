@@ -11,8 +11,8 @@ resource "azurerm_resource_group" "rg-kv" {
 # KeyVault to Store VM Setup Passwords
 # Create KeyVault ID
 resource "random_id" "kvname" {
-  byte_length = 8
-  prefix      = "kv-"
+  byte_length = 6
+  prefix      = "kv-id-"
 }
 # Create KeyVault
 #Keyvault Creation
@@ -59,10 +59,11 @@ resource "azurerm_key_vault_secret" "vmpassword" {
 }
 # Availability Sets
 resource "azurerm_availability_set" "as" {
-  for_each            = var.regions
-  name                = "as-identity-${each.value.location}"
-  location            = each.value.location
-  resource_group_name = azurerm_resource_group.rg[each.key].name
+  for_each                    = var.regions
+  name                        = "as-identity-${each.value.location}"
+  location                    = each.value.location
+  resource_group_name         = azurerm_resource_group.rg[each.key].name
+  platform_fault_domain_count = 2
 }
 # Virtual Networks
 resource "azurerm_virtual_network" "vnet" {
@@ -140,12 +141,13 @@ resource "azurerm_managed_disk" "ntds2" {
 # Domain Controller VMs
 resource "azurerm_windows_virtual_machine" "dc1" {
   for_each            = var.regions
-  name                = "vm1-identity-${each.value.location}"
+  name                = "vm1-id-${each.value.location}"
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   size                = var.dcsize
   admin_username      = var.dcadmin
   admin_password      = azurerm_key_vault_secret.vmpassword.value
+  availability_set_id = azurerm_availability_set.as[each.key].id
   network_interface_ids = [
     azurerm_network_interface.nic1[each.key].id,
   ]
@@ -164,12 +166,13 @@ resource "azurerm_windows_virtual_machine" "dc1" {
 }
 resource "azurerm_windows_virtual_machine" "dc2" {
   for_each            = var.regions
-  name                = "vm2-identity-${each.value.location}"
+  name                = "vm2-id-${each.value.location}"
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   size                = var.dcsize
   admin_username      = var.dcadmin
   admin_password      = azurerm_key_vault_secret.vmpassword.value
+  availability_set_id = azurerm_availability_set.as[each.key].id
   network_interface_ids = [
     azurerm_network_interface.nic2[each.key].id,
   ]
