@@ -21,15 +21,15 @@ Note, the VM Password is created automatically by a randomly generated string.
 
 Update the below with additional (or less) regions as required. You can add as many as required and the Module will deploy resources to each Region specified. 
 
-  regions = {
-    region1 = {
-      location = "uksouth"
-      vnetcidr = ["10.10.0.0/16"]
-      snetcidr = ["10.10.1.0/24"]
+    regions = {
+        region1 = {
+        location = "uksouth"
+        vnetcidr = ["10.10.0.0/16"]
+        snetcidr = ["10.10.1.0/24"]
+        }
+        region2 = {
+        location = "eastus"
+        vnetcidr = ["10.11.0.0/16"]
+        snetcidr = ["10.11.1.0/24"]
+        }
     }
-    region2 = {
-      location = "eastus"
-      vnetcidr = ["10.11.0.0/16"]
-      snetcidr = ["10.11.1.0/24"]
-    }
-  }
