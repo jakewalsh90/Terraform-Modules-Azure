@@ -1,4 +1,4 @@
-## Azure Domain Controllers / Identity VNETs
+## Azure Domain Controllers / Identity Resources
 
 The aim of this module is to provide a simple way to deploy the following elements within each required Region:
 
