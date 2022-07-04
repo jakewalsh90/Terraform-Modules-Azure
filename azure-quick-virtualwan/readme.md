@@ -1,4 +1,6 @@
-## Azure Virtual WAN Hub
+## Azure Virtual WAN Hubs
+
+### Note, this is Work in Progress and will be expanded/updated in the future. 
 
 The aim of this module is to provide a simple way to deploy the following elements within each required Region:
 

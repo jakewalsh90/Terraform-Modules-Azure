@@ -1,5 +1,7 @@
 ## Azure Domain Controllers / Identity Resources
 
+### Note, this is Work in Progress and will be expanded/updated in the future. 
+
 The aim of this module is to provide a simple way to deploy the following elements within each required Region:
 
     1. A Resource Group for Identity.
