@@ -30,10 +30,5 @@ module "domain-controllers" {
       vnetcidr = ["10.10.0.0/16"]
       snetcidr = ["10.10.1.0/24"]
     }
-    region2 = {
-      location = "eastus"
-      vnetcidr = ["10.11.0.0/16"]
-      snetcidr = ["10.11.1.0/24"]
-    }
   }
 }
