@@ -49,6 +49,7 @@ resource "azurerm_key_vault_secret" "vmsecret" {
   value        = random_password.vmsecret.result
   key_vault_id = azurerm_key_vault.kv1.id
   depends_on   = [azurerm_key_vault.kv1]
+  content_type = "Default VM Password"
 }
 #Create vpnsecret
 resource "random_password" "vpnsecret" {
@@ -61,4 +62,5 @@ resource "azurerm_key_vault_secret" "vpnsecret" {
   value        = random_password.vpnsecret.result
   key_vault_id = azurerm_key_vault.kv1.id
   depends_on   = [azurerm_key_vault.kv1]
+  content_type = "VPN Secret"
 }

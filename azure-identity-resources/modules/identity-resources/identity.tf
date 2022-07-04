@@ -56,6 +56,7 @@ resource "azurerm_key_vault_secret" "vmpassword" {
   value        = random_password.vmpassword.result
   key_vault_id = azurerm_key_vault.kv1.id
   depends_on   = [azurerm_key_vault.kv1]
+  content_type = "Default Password for created virtual machines"
 }
 # Availability Sets
 resource "azurerm_availability_set" "as" {
@@ -203,4 +204,22 @@ resource "azurerm_virtual_machine_data_disk_attachment" "ntds2" {
   virtual_machine_id = azurerm_windows_virtual_machine.dc2[each.key].id
   lun                = "10"
   caching            = "None"
+}
+# Recovery Services Vault
+resource "azurerm_recovery_services_vault" "rsv" {
+  for_each            = var.regions
+  name                = "rsv-identity-${each.value.location}"
+  location            = each.value.location
+  resource_group_name = azurerm_resource_group.rg[each.key].name
+  sku                 = "Standard"
+  soft_delete_enabled = true
+}
+# Log Analytics Workspace
+resource "azurerm_log_analytics_workspace" "law" {
+  for_each            = var.regions
+  name                = "law-identity-${each.value.location}"
+  location            = each.value.location
+  resource_group_name = azurerm_resource_group.rg[each.key].name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
 }
