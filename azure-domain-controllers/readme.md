@@ -19,7 +19,7 @@ Note, the VM Password is created automatically by a randomly generated string.
 
 ### Region Specific Variables
 
-Update the below with additional (or less) regions as required. You can add as many as required and the Module will deploy resources to each Region specified. 
+Update the below (in azuredeploy.tf) with additional (or less) regions as required. You can add as many as required and the Module will deploy resources to each Region specified. 
 
     regions = {
         region1 = {
