@@ -1,18 +1,18 @@
-variable "loc1" {
-  default = "uksouth"
-}
-variable "loc2" {
-  default = "ukwest"
-}
-variable "virtualwan-rg-name-prefix" {
-  default = "rg-conn-"
+variable "pri-location" {
+  description = "Location for Primary Objects that are only required in a single region"
+  default     = "uksouth"
 }
 variable "virtualwan-name" {
-  default = "virtualwan"
+  description = "Default name for the Virtual WAN"
+  default     = "virtualwan1"
 }
-variable "loc1-hub-cidr" {
-  default = "virtualwan"
-}
-variable "loc2-hub-cidr" {
-  default = "virtualwan"
+variable "regions" {
+  description = "Regional variables"
+  type        = map(any)
+  default = {
+    location1 = {
+      location = "uksouth"
+      hubcidr = "10.10.0.0/21"
+    }
+  }
 }

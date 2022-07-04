@@ -19,10 +19,18 @@ provider "azurerm" {
 # Modules 
 module "quick-virtualwan" {
   source                    = "./modules/quick-virtualwan"
-  loc1                      = "uksouth"
-  loc2                      = "ukwest"
-  virtualwan-rg-name-prefix = "rg-conn-"
-  virtualwan-name           = "virtualwan"
-  loc1-hub-cidr             = "10.10.0.0/21"
-  loc2-hub-cidr             = "10.20.0.0/21"
+  # Global Variables
+  pri-location = "uksouth"
+  virtualwan-name = "virtualwan1"
+  # Region Specific Variables
+  regions = {
+    region1 = {
+      location = "uksouth"
+      hubcidr = "10.10.0.0/21"
+    }
+    region2 = {
+      location = "eastus"
+      hubcidr = "10.20.0.0/21"
+    }
+  }
 }
