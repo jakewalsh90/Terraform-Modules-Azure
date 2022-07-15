@@ -20,10 +20,10 @@ Please reach out to me via my Website or Twitter - I am happy to create new proj
 ## :heavy_check_mark: Projects in this Repository
 
 ### 1. **Azure Quick KeyVault**
-*This creates a simple KeyVault setup that includes a Resource Group, Key Vault, and a number of secure secrets that can be used in your deployments.* **See: [azure-quick-keyvault](https://github.com/jakewalsh90/Terraform-Modules/tree/main/azure-quick-keyvault)**
+*This creates a simple KeyVault setup that includes a Resource Group, Key Vault, and a number of secure secrets that can be used in your deployments.* **See: [Azure Quick Key Vault](https://github.com/jakewalsh90/Terraform-Modules/tree/main/azure-quick-keyvault)**
 
 ### 2. **Azure Quick Virtual WAN**
-*This creates a simple Azure Virtual WAN environment that can be used for Labs/Testing and learning about Virtual WAN.* **See: [azure-quick-virtualwan](https://github.com/jakewalsh90/Terraform-Modules/tree/main/azure-quick-virtualwan)**
+*This creates a simple Azure Virtual WAN environment that can be used for Labs/Testing and learning about Virtual WAN.* **See: [Azure Quick Virtual WAN](https://github.com/jakewalsh90/Terraform-Modules/tree/main/azure-quick-virtualwan)**
 
 ### 3. **Azure Identity Resources**
 *This module creates a number of identity resources across Azure regions using a Map Variable. You can use this module to add identity Resources to whichever Regions you require easily.* **See: [Azure Identity Resources](https://github.com/jakewalsh90/Terraform-Modules/tree/main/azure-identity-resources)**
