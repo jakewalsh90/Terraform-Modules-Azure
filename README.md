@@ -1,4 +1,7 @@
 # Terraform-Modules
+
+[![Check Links](https://github.com/jakewalsh90/Terraform-Modules-Azure/actions/workflows/links.yml/badge.svg)](https://github.com/jakewalsh90/Terraform-Modules-Azure/actions/workflows/links.yml)
+
 This repository contains Terraform Modules I have created for Azure. Feel free to use these as you wish! 😄
 
 ## How to Deploy
