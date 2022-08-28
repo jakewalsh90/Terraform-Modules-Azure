@@ -20,6 +20,10 @@ If you are new to Terraform, please check out my Getting Started with Azure Terr
 
 Please reach out to me via my Website or Twitter - I am happy to create new projects or collaborate!
 
+## :question: Found an issue or Bug? 
+
+Please open an issue, or feel free to create a pull request. You can also reach out to me via my Website or Twitter! :)
+
 ## :heavy_check_mark: Projects in this Repository
 
 ### 1. **Azure Quick KeyVault**
