@@ -34,3 +34,6 @@ Please open an issue, or feel free to create a pull request. You can also reach 
 
 ### 3. **Azure Identity Resources**
 *This module creates a number of identity resources across Azure regions using a Map Variable. You can use this module to add identity Resources to whichever Regions you require easily.* **See: [Azure Identity Resources](https://github.com/jakewalsh90/Terraform-Modules/tree/main/azure-identity-resources)**
+
+### 14. **Single Region Base Lab Environment for Azure - V2**
+*Updated from my Single Region Azure Base Lab - This V2 version creates a simple Lab environment within a Single Azure Region. The idea here is that it allows for quick deployment of VNETs, Subnets, Domain Controller/Additional VMs to simulate smaller environments or provide a quick lab for any test requirements. Now includes optional features, enabled/disabled via Variables; Azure Bastion, Azure Firewall, AVD Supporting Elements, and a Virtual Network Gateway.* **See: [Azure Single Region Base Lab V2](https://github.com/jakewalsh90/Terraform-Modules-Azure/tree/main/azure-single-region-baselabv2).**
