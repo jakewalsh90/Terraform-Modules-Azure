@@ -20,9 +20,8 @@ provider "azurerm" {
 module "identity-resources" {
   source = "./modules/identity-resources"
   # Global Variables
-  pri-location = "uksouth"
-  dcsize       = "Standard_D2s_v4"
-  dcadmin      = "vmadmin"
+  dcsize  = "Standard_D2s_v4"
+  dcadmin = "vmadmin"
   # Region Specific Variables
   regions = {
     region1 = {
@@ -30,5 +29,10 @@ module "identity-resources" {
       vnetcidr = ["10.10.0.0/16"]
       snetcidr = ["10.10.1.0/24"]
     }
+    # region2 = {
+    #   location = "eastus"
+    #   vnetcidr = ["10.20.0.0/16"]
+    #   snetcidr = ["10.20.1.0/24"]
+    # }
   }
 }

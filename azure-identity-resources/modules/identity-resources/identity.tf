@@ -4,10 +4,6 @@ resource "azurerm_resource_group" "rg" {
   name     = "rg-identity-${each.value.location}"
   location = each.value.location
 }
-resource "azurerm_resource_group" "rg-kv" {
-  name     = "rg-identity-kv-${var.pri-location}"
-  location = var.pri-location
-}
 # KeyVault to Store VM Setup Passwords
 # Create KeyVault ID
 resource "random_id" "kvname" {
@@ -19,8 +15,8 @@ resource "random_id" "kvname" {
 data "azurerm_client_config" "current" {}
 resource "azurerm_key_vault" "kv1" {
   name                        = random_id.kvname.hex
-  location                    = var.pri-location
-  resource_group_name         = azurerm_resource_group.rg-kv.name
+  location                    = var.regions.region1.location
+  resource_group_name         = "rg-identity-${var.regions.region1.location}"
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
@@ -98,22 +94,22 @@ resource "azurerm_subnet_network_security_group_association" "nsga" {
 # NICs
 resource "azurerm_network_interface" "nic1" {
   for_each            = var.regions
-  name                = "dc1-nic-identity-${each.value.location}"
+  name                = "nic-identity-dc1-${each.value.location}"
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   ip_configuration {
-    name                          = "ipconfig-nic1-${each.value.location}"
+    name                          = "ipconfig-nic1-dc1-${each.value.location}"
     subnet_id                     = azurerm_subnet.snet[each.key].id
     private_ip_address_allocation = "Dynamic"
   }
 }
 resource "azurerm_network_interface" "nic2" {
   for_each            = var.regions
-  name                = "dc2-nic-identity-${each.value.location}"
+  name                = "nic-identity-dc2${each.value.location}"
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   ip_configuration {
-    name                          = "ipconfig-nic1-${each.value.location}"
+    name                          = "ipconfig-nic1-dc2-${each.value.location}"
     subnet_id                     = azurerm_subnet.snet[each.key].id
     private_ip_address_allocation = "Dynamic"
   }
@@ -121,7 +117,7 @@ resource "azurerm_network_interface" "nic2" {
 # Data Disks for NTDS
 resource "azurerm_managed_disk" "ntds1" {
   for_each             = var.regions
-  name                 = "dc1-ntds-identity-${each.value.location}"
+  name                 = "ntds-identity-dc1${each.value.location}"
   location             = each.value.location
   resource_group_name  = azurerm_resource_group.rg[each.key].name
   storage_account_type = "StandardSSD_LRS"
@@ -131,7 +127,7 @@ resource "azurerm_managed_disk" "ntds1" {
 }
 resource "azurerm_managed_disk" "ntds2" {
   for_each             = var.regions
-  name                 = "dc2-ntds-identity-${each.value.location}"
+  name                 = "ntds-identity-dc2${each.value.location}"
   location             = each.value.location
   resource_group_name  = azurerm_resource_group.rg[each.key].name
   storage_account_type = "StandardSSD_LRS"
@@ -142,7 +138,7 @@ resource "azurerm_managed_disk" "ntds2" {
 # Domain Controller VMs
 resource "azurerm_windows_virtual_machine" "dc1" {
   for_each            = var.regions
-  name                = "dc1-id-${each.value.location}"
+  name                = "vm-dc1-${each.value.location}"
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   size                = var.dcsize
@@ -167,7 +163,7 @@ resource "azurerm_windows_virtual_machine" "dc1" {
 }
 resource "azurerm_windows_virtual_machine" "dc2" {
   for_each            = var.regions
-  name                = "dc2-id-${each.value.location}"
+  name                = "vm-dc2-${each.value.location}"
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   size                = var.dcsize
