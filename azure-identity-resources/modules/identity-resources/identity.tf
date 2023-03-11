@@ -138,7 +138,8 @@ resource "azurerm_managed_disk" "ntds2" {
 # Domain Controller VMs
 resource "azurerm_windows_virtual_machine" "dc1" {
   for_each            = var.regions
-  name                = "vm-dc1-${each.value.location}"
+  name                = "vmdc1${each.value.location}"
+  # Note: VM names shortened for size limits in naming. 
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   size                = var.dcsize
@@ -163,7 +164,8 @@ resource "azurerm_windows_virtual_machine" "dc1" {
 }
 resource "azurerm_windows_virtual_machine" "dc2" {
   for_each            = var.regions
-  name                = "vm-dc2-${each.value.location}"
+  name                = "vmdc2${each.value.location}"
+  # Note: VM names shortened for size limits in naming. 
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
   size                = var.dcsize
