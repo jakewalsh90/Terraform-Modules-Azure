@@ -10,8 +10,7 @@ The aim of this module is to provide a simple way to deploy the following elemen
 
 To use this module, update the variables (in azuredeploy.tf) as per the below:
 
-    ### Global Variables
-    pri-location = "uksouth"              # This sets the Primary Location - this is used by the Key Vault
+### Global Variables
     virtualwan-name = "virtualwan1"       # This sets the name of the Virtual WAN
 
 ### Region Specific Variables
