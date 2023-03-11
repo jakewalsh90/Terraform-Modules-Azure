@@ -16,7 +16,7 @@ data "azurerm_client_config" "current" {}
 resource "azurerm_key_vault" "kv1" {
   name                        = random_id.kvname.hex
   location                    = var.regions.region1.location
-  resource_group_name         = "rg-identity-${var.regions.region1.location}"
+  resource_group_name         = azurerm_resource_group.rg["region1"].name
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
@@ -137,8 +137,8 @@ resource "azurerm_managed_disk" "ntds2" {
 }
 # Domain Controller VMs
 resource "azurerm_windows_virtual_machine" "dc1" {
-  for_each            = var.regions
-  name                = "vmdc1${each.value.location}"
+  for_each = var.regions
+  name     = "vmdc1${each.value.location}"
   # Note: VM names shortened for size limits in naming. 
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name
@@ -163,8 +163,8 @@ resource "azurerm_windows_virtual_machine" "dc1" {
   }
 }
 resource "azurerm_windows_virtual_machine" "dc2" {
-  for_each            = var.regions
-  name                = "vmdc2${each.value.location}"
+  for_each = var.regions
+  name     = "vmdc2${each.value.location}"
   # Note: VM names shortened for size limits in naming. 
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg[each.key].name

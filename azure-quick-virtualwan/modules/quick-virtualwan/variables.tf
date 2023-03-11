@@ -8,7 +8,7 @@ variable "regions" {
   default = {
     location1 = {
       location = "uksouth"
-      hubcidr = "10.10.0.0/21"
+      hubcidr  = "10.10.0.0/21"
     }
   }
 }
