@@ -20,7 +20,6 @@ provider "azurerm" {
 module "quick-virtualwan" {
   source = "./modules/quick-virtualwan"
   # Global Variables
-  pri-location    = "uksouth"
   virtualwan-name = "virtualwan1"
   # Region Specific Variables
   regions = {

@@ -1,7 +1,3 @@
-variable "pri-location" {
-  description = "Location for Primary Objects that are only required in a single region"
-  default     = "uksouth"
-}
 variable "virtualwan-name" {
   description = "Default name for the Virtual WAN"
   default     = "virtualwan1"

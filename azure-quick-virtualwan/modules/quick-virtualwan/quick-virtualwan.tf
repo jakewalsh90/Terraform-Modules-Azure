@@ -1,7 +1,7 @@
 # Resource Groups
 resource "azurerm_resource_group" "rg1" {
-  name     = "rg-conn-${var.pri-location}-virtualwan"
-  location = var.pri-location
+  name     = "rg-conn-${var.regions.location1}-virtualwan"
+  location = var.regions.location1
 }
 resource "azurerm_resource_group" "rg" {
   for_each = var.regions
@@ -12,7 +12,7 @@ resource "azurerm_resource_group" "rg" {
 resource "azurerm_virtual_wan" "virtualwan1" {
   name                = var.virtualwan-name
   resource_group_name = azurerm_resource_group.rg1.name
-  location            = var.pri-location 
+  location            = var.regions.location1 
   # Configuration 
   office365_local_breakout_category = "OptimizeAndAllow"
 }
