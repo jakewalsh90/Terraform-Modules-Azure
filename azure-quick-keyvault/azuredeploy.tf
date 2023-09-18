@@ -4,7 +4,7 @@ terraform {
     azurerm = {
       # Specify what version of the provider we are going to utilise
       source  = "hashicorp/azurerm"
-      version = ">= 3.72.0"
+      version = ">= 3.73.0"
     }
     random = {
       source  = "hashicorp/random"
@@ -22,6 +22,8 @@ module "quick-keyvault" {
   lz-keyvault-loc = "ukwest"
   lz-keyvault-rg  = "jwrgkv1"
 }
+
+
 
 
 
