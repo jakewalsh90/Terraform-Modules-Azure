@@ -6,7 +6,7 @@ $oldazurerm = '
 '
 $newazurerm = '
       source  = "hashicorp/azurerm"
-      version = ">= 3.82.0"
+      version = ">= 3.83.0"
 '
 $oldrandom = '
       source  = "hashicorp/random"
